@@ -1,10 +1,16 @@
-import psycopg2
+from dotenv import find_dotenv, load_dotenv
 from os import getenv
+import psycopg2
 
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
 
+db_conn = psycopg2.connect(host=getenv('HOST_DB'), database=getenv('NAME_DB'),
+user=getenv('USER_DB'), password=getenv('PW_DB'), port=getenv('PORT_DB'))
 
-db_conn = psycopg2.connect(host="localhost", database="teste2",
-user="postgres", password="RootQWE123")
+# db_conn = psycopg2.connect(host="localhost", database="teste2",
+# user="postgres", password="RootQWE123")
 cursor = db_conn.cursor()
 
 class HandleDB():
